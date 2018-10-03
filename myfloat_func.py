@@ -27,21 +27,17 @@ def suma(a,b):
     i=0
     j=abs(z1-z2)
     u=abs(x1-x2)
+    e=a[0]
+    o=a[1]
+    c=b[0]
+    p=b[1]
     if(z1>z2):
-        c=b[0]
-        e=a[0]
         d=[None]*z1
     else:
-        c=a[0]
-        e=b[0]
         d=[None]*z2
     if(x1>x2):
-        o=b[1]
-        p=a[1]
         h=[None]*x1
     else:
-        o=a[1]
-        p=b[1]
         h=[None]*x2
     for i in range(j):
         c.insert(1,0)
@@ -49,6 +45,18 @@ def suma(a,b):
         o.insert(len(o),0)
     if(e[0]==c[0]):
         d[0]=e[0]
+        if(z1>z2):
+            c=b[0]
+            e=a[0]
+        else:
+            c=a[0]
+            e=b[0]
+        if(x1>x2):
+            o=b[1]
+            p=a[1]
+        else:
+            o=a[1]
+            p=b[1]
         for k in range(1,len(o)+1):
             if(o[len(o)-k]+p[len(o)-k]+res1>=10):
                 h[len(o)-k]=o[len(o)-k]+p[len(o)-k]+res1-10
@@ -78,12 +86,12 @@ def suma(a,b):
         t=0
         while(s<len(e)):
             if(e[s]>c[s]):
-                #print("1")
+                print("1")
                 d[0]=e[0]
                 g1=e
                 pe1=c
-                g2=p
-                pe2=o
+                g2=o
+                pe2=p
                 s=len(e)
                 t=len(o)
             elif(e[s]<c[s]):
@@ -91,8 +99,8 @@ def suma(a,b):
                 d[0]=c[0]
                 g1=c
                 pe1=e
-                g2=o
-                pe2=p
+                g2=p
+                pe2=o
                 s=len(e)
                 t=len(o)
             else:
@@ -155,20 +163,23 @@ def resta(a, b):
         b[0][0]="-"
     suma(a,b)
     pass
+
+
 def voltear(a):
-    d=[None]*len(a[0])
-    for k in range(0,len(a[0])-1):
-        d[k]=a[0][len(a[0])-1-k]
+    d=[None]*len(a)
+    for k in range(0,len(a)):
+        d[k]=a[len(a)-1-k]
     return(d)
         
         
 
 def multiplicacion(a, b):
     print("Multiplicacion")
-    c=voltear(a)
-    d=voltear(b)
-    print(c)
-    print(d)
+    decimal=len(b[1])+len(a[1])
+    t1=a[0]+a[1]
+    t2=b[0]+b[1]
+    c=voltear(t1)
+    d=voltear(t2)
     r = [0]*(len(c)+len(d))
     p=len(c)-1
     q=len(d)-1
@@ -179,7 +190,21 @@ def multiplicacion(a, b):
             carry = int(r[s+k] / 10)
             r[s+k] = int(r[s+k]%10)
         r[k + p] += carry  
-    return (r)
+    f=voltear(r)
+    pentera=[0]*(len(f)-decimal)
+    pdecimal=[0]*(decimal)
+    for k in range(0,len(f)-decimal):
+        pentera[k]=f[k]
+    for g in range(len(f)-decimal,len(f)):
+        pdecimal[len(f)-decimal-g]=f[g]
+    if(a[0][0]==b[0][0]):
+        pentera[0]="+"
+    else:
+        pentera[0]="-"
+    x=(pentera,pdecimal)
+    imprimir(x)
+
+    
     
     
 def cerosd(a,d):
@@ -189,11 +214,10 @@ def cerosd(a,d):
             a[k]=a[k]*0.0
     return(a)
         
+        
    
-      
-
+   
     
-
     
     pass
 def division(a, b):
@@ -210,11 +234,11 @@ def pi():
 
 #if __name__ == "__main__":
     #print(imprimir(pi()))
-l=["-",3,0,0,6,]
-r=[1,9,9,5]
+l=["-",3,0,0,9]
+r=[1]
 a=(l,r)
-j=["+",2]
-k=[0,1,9,1,1,1,1,1,1,1,1,1,1,1,1]
+j=["+",1]
+k=[2]
 b=(j,k)
 suma(a,b)
 resta(a,b)
