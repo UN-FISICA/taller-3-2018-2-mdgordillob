@@ -15,7 +15,6 @@ def imprimir(a):
     for j in range(x):
        print(a[1][j],end ='')
     print("")
-    return
 def suma(a,b):
     z1=len(a[0])
     x1=len(a[1])
@@ -153,7 +152,7 @@ def suma(a,b):
     print("  =  ")
     v=(d,h)
     imprimir(v)
-    return
+    return(v)
 
 def resta(a, b):
     print("Resta")
@@ -198,43 +197,106 @@ def multiplicacion(a, b):
     for g in range(len(f)-decimal,len(f)):
         pdecimal[len(f)-decimal-g]=f[g]
     if(a[0][0]==b[0][0]):
-        pentera[0]="+"
-    else:
         pentera[0]="-"
+    if(a[0][0]!=b[0][0]):
+        pentera[0]="+"
     x=(pentera,pdecimal)
     imprimir(x)
-
-    
-    
-    
-def cerosd(a,d):
-    for k in range(d,len(a)-1):
-        print(d)
-        if(a[k]<0.1):
-            a[k]=a[k]*0.0
-    return(a)
-        
-        
-   
-   
-    
-    
-    pass
-def division(a, b):
-    pass
-
-
-def comparacion(a, b):
-    pass
-
-
+    return(x)
+def division(a, b,im):
+    del a[0][0]
+    del b[0][0]
+    c=[]
+    d=[]
+    divdecimal=""
+    diventero=""
+    for i in range (len(a[0])):
+        c.append(a[0][i])
+    for j in range (len(a[1])):
+        c.append(a[1][j])
+    if len(a[1])<len(b[1]):
+        cero=len(b[1])-len(a[1])
+        for k in range(cero):
+            c.append(0)
+    for l in range(len(b[0])):
+        d.append(b[0][l])
+    for m in range (len(b[1])):
+        d.append(b[1][m])
+    if len(b[1])<len(a[1]):
+        cero=len(a[1])-len(b[1])
+        for k in range(cero):
+            d.append(0)
+    num1=float("".join(str(n) for n in c))
+    num2=float("".join(str(o) for o in d))
+    diventero+=str(int(num1/num2))
+    mod=(num1%num2)*10
+    for p in range (im):
+        rest=int(mod/num2)
+        divdecimal+=str(rest)
+        mod=(mod%num2)*10
+    d0=list(map(int,diventero))
+    d1=list(map(int,divdecimal))
+    if(a[0][0]==b[0][0]):
+        d0.insert(0,"-")
+    if(a[0][0]!=b[0][0]):
+        d0.insert(0,"+")
+    if im==101:
+        if num1%num2==0:
+            a1=[]
+            a1.append(0)
+        else:
+            q=0
+            while q==0:
+                if a1[-1]=="0":
+                    a1.pop(-1)
+                else:
+                    q=1
+    r=(d0,d1)
+    print("Division")
+    imprimir(r)
+    return(r)
+def comparacion(c,d):
+    a=[c[0],c[1]]
+    b=[d[0],d[1]]
+    if min(len(a[1]),len(b[1]))==len(a[1]):
+        for i in range(len(b[1])-len(a[1])):
+            a[1].append(0)
+    if min(len(a[1]),len(b[1]))==len(b[1]):
+        for i in range(len(a[1])-len(b[1])):
+            b[1].append(0)
+    if min(len(a[0]),len(b[0]))==len(a[0]):
+        for i in range(len(b[0])-len(a[0])):
+            a[0].insert(1,0)
+    if min(len(a[0]),len(b[0]))==len(b[0]):
+        for i in range(len(a[0])-len(b[0])):
+            b[0].insert(1,0)
+    if a[0]==b[0] and a[1]==b[1]:
+        return True
+    else:
+        return False
 def pi():
-    pass
+    c1=(["+",1],[0])
+    m=(["-",1],[0])
+    c2=(["+",2],[0])
+    c4=(["+",4],[0])
+    resultado=(["+",0],[0])
+    t=0
+    while t<10000:
+        kfloat=(["+",t],[0])
+        den=suma(multiplicacion(c2,kfloat),c1)
+        if t%2==0:
+            r=suma(r,division(c4,den))
+        else:
+            r=suma(r,multiplicacion(division(c4,den),m1))
+    t+=1
+    
+    
+
 
 
 #if __name__ == "__main__":
     #print(imprimir(pi()))
-l=["-",3,0,0,9]
+l=["+",3,0,0,9]
 r=[1]
 a=(l,r)
 j=["+",1]
@@ -243,3 +305,5 @@ b=(j,k)
 suma(a,b)
 resta(a,b)
 multiplicacion(a,b)
+division(a,b,125)
+comparacion(a,b)
